@@ -1,0 +1,589 @@
+* {
+  scroll-behavior: smooth;
+}
+:root {
+  --primary: #b6895b;
+  --bg: #010101;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg);
+  color: #fff;
+}
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 7%;
+  background-color: rgba(1, 1, 1, 0, 8);
+  border-bottom: 1px solid #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+.navbar .navbar-logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+.navbar .navbar-logo span {
+  color: hsl(30, 78%, 49%);
+  font-style: italic;
+}
+.navbar .navbar-nav a {
+  color: #fff;
+  /* inline block agar tidak melebihi layar/turun kebawah */
+  display: inline-block;
+  font-size: 1.1rem;
+  margin: 0 1rem;
+  padding-top: 0.7rem;
+}
+/* agar ketika di hover/dipilih pakai cursor warnanya berubah */
+.navbar .navbar-nav a:hover {
+  color: hsl(30, 78%, 49%);
+}
+/* bikin animasi ketika kita hover navigasinya (pseudo elements)*/
+.navbar .navbar-nav a::after {
+  content: "";
+  display: block;
+  padding-bottom: 0.1rem;
+  border-bottom: 0.1rem solid hsl(30, 78%, 49%);
+  transform: scaleX(0);
+  transition: 0.2s linear;
+}
+.navbar .navbar-nav a:hover::after {
+  transform: scaleX(0.5);
+}
+.navbar .navbar-extra a {
+  color: #fff;
+  margin: 0 0.5rem;
+}
+.navbar .navbar-extra a:hover {
+  color: hsl(30, 78%, 49%);
+}
+#list {
+  display: none;
+}
+/* Navbar Search Form */
+.navbar .search-form {
+  position: absolute;
+  top: 100%;
+  right: 7%;
+  background-color: rgba(255, 255, 255, 0.836);
+  width: 25rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: 0.3s;
+}
+.navbar .search-form.active {
+  transform: scaleY(1);
+}
+.navbar .search-form #search-box {
+  height: 100%;
+  width: 100%;
+  font-size: 1rem;
+  color: #010101;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0);
+}
+.navbar .search-form label {
+  cursor: pointer;
+  font-size: 2rem;
+  margin-right: 1.5rem;
+  color: #010101;
+}
+/* Save Items */
+.bookmarks-item {
+  position: absolute;
+  top: 100%;
+  right: -100%;
+  height: 100vh;
+  width: 32rem;
+  padding: 0 1.5rem;
+  background-color: rgb(255, 254, 254);
+  color: #010101;
+  transition: 0.3s;
+}
+.bookmarks-item.active {
+  right: 0;
+}
+.bookmarks-item .save-item {
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.5px dashed #666;
+}
+.bookmarks-item h3 {
+  font-size: 1.6rem;
+}
+.bookmarks-item .item-deskripsi {
+  font-size: 0.8rem;
+}
+.bookmarks-item .remove-item {
+  position: absolute;
+  right: 1rem;
+  cursor: pointer;
+}
+.bookmarks-item .remove-item:hover {
+  color: hsl(30, 78%, 49%);
+}
+.bookmarks-item img {
+  height: 10rem;
+  border-radius: 5%;
+}
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  /* agar isi kontennya tepat ditengah*/
+  display: flex;
+  align-items: center;
+  background-image: url("../img/headeranime.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+/* BIKIN ELEMENT PSEUDO UNTUK HERO SECTION,AGAR ADA GRADASI HITAM KETIKA DI SCROLL */
+.hero::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 30%;
+  bottom: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(1, 1, 3, 1) 8%,
+    rgba(255, 255, 255, 0) 50%
+  );
+}
+.hero .content {
+  padding: 1.4rem 7%;
+  max-width: 60rem;
+}
+.hero .content h1 {
+  font-size: 5em;
+  color: #fff;
+  /* -webkit-text-stroke-width: 1.5px; */
+  /* -webkit-text-stroke-color: #010101; */
+  text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+  /* line height untuk mengatur jarak atas bawah text */
+  line-height: 0.8;
+}
+.hero .content h1 span {
+  color: hsl(30, 78%, 49%);
+  /* -webkit-text-stroke-width: 0.4px; */
+  /* -webkit-text-stroke-color: rgb(255, 255, 255); */
+}
+.hero .content p {
+  font-size: 1.6rem;
+  margin-top: 1rem;
+  line-height: 1.2;
+  font-weight: 300;
+  text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+  /* agar warna font kelihatan ketika dibuka di mode hp,ini diperlukan kalau warna font dan background sama,berhubung kita tidak sama maka disini tidak digunakan */
+  /* mix-blend-mode: difference; */
+}
+.hero .content .cta {
+  margin-top: 1rem;
+  display: inline-block;
+  /* dibaca padding atas 1rem(16px) kiri kanan 2rem */
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  color: #fff;
+  background-color: hsl(30, 78%, 49%);
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+}
+
+/* .hero .content .cta::after { 
+  content: "";
+  display: block;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.1rem solid hsl(30, 78%, 49%);
+  transform: scaleX(0);
+  transition: 0.2s linear;
+}
+.hero .content .cta:hover::after {
+  transform: scaleX(0.5);
+} */
+
+/* About Section */
+.about {
+  padding: 7rem 7% 1.4rem;
+}
+.about h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+.about h2 span {
+  color: hsl(30, 78%, 49%);
+}
+.about .row {
+  display: flex;
+}
+
+.about .row .about-img {
+  flex: 1 1 45rem;
+}
+.about .row .about-img img {
+  /* untuk memenuhi semua bagian flex */
+  width: 100%;
+}
+.about .row .content {
+  flex: 1 1 35rem;
+  padding: 0 1rem;
+}
+.about .row .content h3 {
+  font-size: 2rem;
+  color: hsl(30, 78%, 49%);
+  line-height: 2.4rem;
+  /* margin bottom untuk jarak teks ini dan dibawahnya */
+  margin-bottom: 1rem;
+}
+.about .row .content p {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  font-weight: 300;
+  line-height: 1.6rem;
+}
+/* Section Menu */
+.menu {
+  padding: 7rem 7% 1.4rem;
+}
+.menu h2 {
+  text-align: center;
+  font-size: 2.5rem;
+}
+.menu h2 span {
+  color: hsl(30, 78%, 49%);
+}
+.menu p {
+  text-align: center;
+  max-width: 40rem;
+  /* margin auto biar ketengah */
+  margin: auto;
+  font-weight: 300;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+}
+.menu .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 4rem;
+  justify-content: center;
+}
+.menu .row .menu-card {
+  text-align: center;
+  padding-bottom: 4rem;
+}
+.menu .row .menu-card img {
+  border-radius: 25%;
+  width: 75%;
+}
+.menu .row .menu-card .menu-card-title {
+  margin-top: 0.5rem auto 0.5rem;
+  font-size: 1.6rem;
+}
+.menu .row .menu-card .menu-card-title a {
+  color: #fff;
+}
+.menu .row .menu-card .menu-card-title a:hover {
+  color: hsl(30, 78%, 49%);
+  cursor: pointer;
+}
+.menu .row .menu-card a {
+  align-items: center;
+}
+.menu .daftar {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 4rem;
+  justify-content: center;
+}
+.menu .daftar .daftar-anime {
+  text-align: center;
+  padding-bottom: 4rem;
+}
+.menu .daftar .daftar-anime-img {
+  border-radius: 5%;
+}
+.menu .daftar .judul-anime {
+  margin-top: 0.2rem;
+  font-size: 2rem;
+}
+.menu .daftar .judul-anime a {
+  color: #fff;
+}
+.menu .daftar .judul-anime a:hover {
+  color: hsl(30, 78%, 49%);
+  cursor: pointer;
+}
+.menu .daftar .daftar-anime p {
+  font-size: 1rem;
+  width: 75%;
+}
+/* BOOKMARKS SECTION */
+.bookmarks {
+  padding: 7rem 7% 1.4rem;
+}
+.bookmarks .row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 4rem;
+}
+.bookmarks .favorit-card {
+  text-align: center;
+  border: 1px solid #666;
+  padding: 2rem;
+}
+.bookmarks h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.bookmarks span {
+  color: hsl(30, 78%, 49%);
+}
+.bookmarks p {
+  text-align: center;
+  font-size: 1.4rem;
+}
+.bookmarks .favorit-icons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.bookmarks .favorit-icons a {
+  width: 3rem;
+  height: 3rem;
+  color: #fff;
+  margin: 0.5rem;
+  margin-bottom: 2rem;
+
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  transform: scale(1.3);
+}
+.bookmarks .favorit-icons a:hover {
+  cursor: pointer;
+  background-color: hsl(30, 78%, 49%);
+  border: 1px solid #010101;
+}
+.bookmarks .favorit-image img {
+  height: 25rem;
+}
+.bookmarks .favorit-content h3 {
+  font-size: 1.8rem;
+  margin-top: 0.2rem;
+}
+.bookmarks .anime-rating {
+  font-size: 1.5rem;
+  padding: 0.2rem;
+  color: hsl(30, 78%, 49%);
+}
+.bookmarks .anime-rating .star {
+  fill: hsl(30, 78%, 49%);
+}
+.halfstar {
+  fill: hsl(30, 78%, 49%);
+  clip-path: polygon(0% 0%, 50% 0%, 50% 100%, 0% 100%);
+}
+/*.bookmarks .favorit-card .favorit-image {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 4rem;
+  justify-content: center;
+} */
+/* Contact Section */
+.contact {
+  padding: 7rem 7% 1.4rem;
+}
+.contact h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.contact h2 span {
+  color: hsl(30, 78%, 49%);
+}
+.contact p {
+  text-align: center;
+  max-width: 40rem;
+  margin: auto;
+  font-weight: 300;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+}
+.contact .row {
+  display: flex;
+  margin-top: 2rem;
+  background: none;
+}
+.contact .row .map {
+  flex: 1 1 45rem;
+  width: 100%;
+  object-fit: cover;
+}
+.contact .row form {
+  flex: 1 1 45rem;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+.contact .row form .input-group {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  background-color: var(--bg);
+  border: 1px solid #eee;
+  padding-left: 1rem;
+}
+.contact .row form .input-group input {
+  width: 100%;
+  background: none;
+  padding: 2rem;
+  font-size: 1.7rem;
+  color: #fff;
+  font-weight: 500;
+}
+.contact .row form .btn {
+  margin-top: 2rem;
+  background-color: hsl(30, 78%, 49%);
+  font-size: 1.5rem;
+  display: inline-block;
+  padding: 1rem 3rem;
+  color: #fff;
+  cursor: pointer;
+}
+/* FOOTER SECTION */
+footer {
+  background-color: hsl(30, 78%, 49%);
+  text-align: center;
+  padding: 1rem 0 2rem;
+  margin-top: 3rem;
+}
+footer .socials {
+  padding: 1rem 0;
+}
+footer .socials a {
+  color: #fff;
+}
+footer .socials a:hover {
+  color: var(--bg);
+}
+footer .links a {
+  padding: 0 0.5rem;
+  color: #fff;
+  font-size: 1.2rem;
+}
+footer .links {
+  margin-bottom: 1rem;
+}
+footer .links a:hover {
+  color: var(--bg);
+}
+footer .credit {
+  font-size: 1rem;
+}
+footer .credit a {
+  font-weight: 600;
+  color: var(--bg);
+}
+/* KITA BUAT RESPONSIVE WEB,JADI TAMPILANNYA AKAN BERBEDA JIKA KITA MEMBUKA DI DEVICE SEPERTI HP/TABLET */
+/* MEDIA QUERIES */
+/* LAPTOP */
+@media (max-width: 1366px) {
+  html {
+    font-size: 75%;
+  }
+}
+/* TABLET (COBA CARI REFERENSI MENGENAI RESPONSIVE BREAKPOINT AGAR TAHU UKURAN" YYG DIGUNAKAN DI BRP DEVICE*/
+@media (max-width: 768px) {
+  html {
+    font-size: 62.5%;
+  }
+
+  #list {
+    display: inline-block;
+  }
+  .navbar .navbar-nav {
+    position: absolute;
+    top: 100%;
+    right: -100%;
+    background-color: #fff;
+    width: 10rem;
+    height: 21vh;
+    transition: 0.3s;
+  }
+  .navbar .navbar-nav.active {
+    right: 0;
+  }
+  .navbar .navbar-nav a {
+    color: var(--bg);
+    /* display block itu agar elementnya turun kebawah,kebalikannya dari inline block */
+    display: block;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1.1rem;
+  }
+  /* itukan hasilnya belum ditengah vagiasinya,cara agar ditengah/geser */
+  .navbar .navbar-nav a::after {
+    transform-origin: 0 0;
+  }
+  /* agar ketika dihover garis bawahnya tidak terlalu panjang */
+  .navbar .navbar-nav a:hover:after {
+    transform: scaleX(0.2);
+  }
+  .navbar .search-form {
+    width: 90%;
+    right: 2rem;
+  }
+  /* ATUR AGAR ABOUT US KELIHATAN DI HP/TABLET */
+  .about .row {
+    flex-wrap: wrap;
+  }
+  .navbar-logo .row .about-img img {
+    height: 24rem;
+    /* klo dikasih itu doang nanti gambarnya bakal ketarik /stretch,harus ditambahin seperti dibawah*/
+    object-fit: cover;
+    object-position: center;
+  }
+  .about .row .content {
+    padding: 0;
+  }
+  .about .row .content h3 {
+    margin-top: 1rem;
+    font-size: 1.6rem;
+    font-weight: 300;
+  }
+}
+.contact .row {
+  flex-wrap: wrap;
+}
+.contact .row .map {
+  height: 30rem;
+}
+.contact .row form {
+  padding-top: 0;
+}
+/* KITA INGIN JIKA DIBUKA DI HP NAVIGASINYA HILANG DIGANTIKAN KE LIST MENU(LIST MENUNYA MUNCUL) JADI SIDE BAR*/
